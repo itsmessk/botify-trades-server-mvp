@@ -25,6 +25,4 @@ const analystSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-analystSchema.index({ userId: 1 });
-
 module.exports = mongoose.model('Analyst', analystSchema);

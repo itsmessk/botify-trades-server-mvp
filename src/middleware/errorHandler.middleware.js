@@ -3,6 +3,11 @@ const logger = require('../config/logger');
 const errorHandler = (err, req, res, _next) => {
   logger.error(`Error: ${err.message}`, { stack: err.stack });
 
+  if (err.name === 'ZodError') {
+    const errors = err.errors.map((e) => ({ field: e.path.join('.'), message: e.message }));
+    return res.status(400).json({ message: 'Validation failed', errors });
+  }
+
   if (err.name === 'ValidationError') {
     return res.status(400).json({ message: 'Validation error', errors: err.errors });
   }

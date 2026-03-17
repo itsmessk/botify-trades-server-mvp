@@ -35,17 +35,19 @@ function generateTokens(userId, role) {
 
 // Helper: set tokens as httpOnly cookies
 function setTokenCookies(res, accessToken, refreshToken) {
+  const isProd = process.env.NODE_ENV === 'production';
+
   res.cookie('accessToken', accessToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'strict',
     maxAge: 15 * 60 * 1000, // 15 minutes
   });
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    secure: isProd,
+    sameSite: isProd ? 'none' : 'strict',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 }

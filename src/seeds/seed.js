@@ -22,6 +22,11 @@ const SALT_ROUNDS = 12;
 
 const accounts = [
   {
+    email: 'superadmin@botifytrade.com',
+    password: 'superadmin123',
+    role: 'superadmin',
+  },
+  {
     email: 'admin@botifytrade.com',
     password: 'admin123',
     role: 'admin',
